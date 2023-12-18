@@ -52,10 +52,10 @@ def main():
 
         # Knop om terug te gaan naar overzichtspagina
         if st.button('Terug'):
-            st.session_state.sync()
             st.experimental_rerun()
 
-    st.session_state.sync()
+    if st.session_state.show_answer:
+        st.write('Antwoord: ' + st.session_state.answer)
 
 if __name__ == '__main__':
     main()
