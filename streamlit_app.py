@@ -15,6 +15,14 @@ def get_random_question():
 
 # Streamlit-applicatie
 def main():
+    # Initialisatie van st.session_state
+    if 'question' not in st.session_state:
+        st.session_state.question = None
+    if 'answer' not in st.session_state:
+        st.session_state.answer = None
+    if 'show_answer' not in st.session_state:
+        st.session_state.show_answer = False
+
     st.title('Vragen en Antwoorden App')
 
     # Overzichtspagina met knoppen
