@@ -1,4 +1,4 @@
 altair
 pandas
 streamlit
-openpyxl==3.0.17
+openpyxl
