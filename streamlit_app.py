@@ -33,15 +33,17 @@ def main():
         st.write('Kies een vraagcategorie uit de zijbalk.')
 
         # Knoppen voor verschillende vraagcategorieën
-        if st.sidebar.button('Vraag 1', key='1'):
-            st.session_state.question, st.session_state.answer = get_random_question()
-            st.session_state.show_answer = False
-            page = 'Vraag 1'  # Schakel automatisch naar de Vraag 1-pagina
+        vraag_1_button = st.sidebar.button('Vraag 1', key='1')
+        vraag_2_button = st.sidebar.button('Vraag 2', key='2')
 
-        elif st.sidebar.button('Vraag 2', key='2'):
+        if vraag_1_button or vraag_2_button:
             st.session_state.question, st.session_state.answer = get_random_question()
             st.session_state.show_answer = False
-            page = 'Vraag 2'  # Schakel automatisch naar de Vraag 2-pagina
+
+            if vraag_1_button:
+                page = 'Vraag 1'
+            elif vraag_2_button:
+                page = 'Vraag 2'
 
         # Voeg hier de knoppen voor Vraag 3 tot Vraag 6 toe op dezelfde manier
 
