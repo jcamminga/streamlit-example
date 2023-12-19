@@ -70,7 +70,5 @@ def main():
             st.session_state.show_answer = False
             page = page  # Blijf op dezelfde pagina (bijvoorbeeld 'Vraag 1')
 
-    st.session_state.sync()
-
 if __name__ == '__main__':
     main()
