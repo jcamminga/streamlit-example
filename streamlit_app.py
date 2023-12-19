@@ -36,9 +36,13 @@ def main():
         if st.sidebar.button('Vraag 1', key='1'):
             st.session_state.question, st.session_state.answer = get_random_question()
             st.session_state.show_answer = False
+            page = 'Vraag 1'  # Schakel automatisch naar de Vraag 1-pagina
+
         elif st.sidebar.button('Vraag 2', key='2'):
             st.session_state.question, st.session_state.answer = get_random_question()
             st.session_state.show_answer = False
+            page = 'Vraag 2'  # Schakel automatisch naar de Vraag 2-pagina
+
         # Voeg hier de knoppen voor Vraag 3 tot Vraag 6 toe op dezelfde manier
 
     elif page.startswith('Vraag'):
@@ -52,10 +56,21 @@ def main():
 
         # Knop om terug te gaan naar overzichtspagina
         if st.button('Terug'):
-            st.experimental_rerun()
+            st.session_state.question, st.session_state.answer = get_random_question()
+            st.session_state.show_answer = False
+            page = 'Home'  # Schakel automatisch naar de Home-pagina
 
-    if st.session_state.show_answer:
+    if st.session_state.show_answer and page.startswith('Vraag'):
         st.write('Antwoord: ' + st.session_state.answer)
+
+    if page != 'Home':
+        # Laat een knop zien om opnieuw de Vraag-pagina te openen voor nieuwe vragen
+        if st.button('Opnieuw Vraag'):
+            st.session_state.question, st.session_state.answer = get_random_question()
+            st.session_state.show_answer = False
+            page = page  # Blijf op dezelfde pagina (bijvoorbeeld 'Vraag 1')
+
+    st.session_state.sync()
 
 if __name__ == '__main__':
     main()
