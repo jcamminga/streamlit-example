@@ -3,6 +3,20 @@ import pandas as pd
 import random
 
 # Streamlit-applicatie
+def get_random_question(excel_file_path, question_column, answer_column):
+    # Laad het Excel-bestand met de vragen en antwoorden
+    df = pd.read_excel(excel_file_path)
+
+    # Selecteer een willekeurige rij
+    random_row = df.sample(1)
+
+    # Haal de vraag en het antwoord op uit de geselecteerde rij
+    question = random_row[question_column].values[0]
+    answer = random_row[answer_column].values[0]
+
+    return question, answer
+
+
 def main():
     st.title('Vragen en Antwoorden App')
 
