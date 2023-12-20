@@ -28,8 +28,10 @@ if 'question' not in st.session_state or 'answer' not in st.session_state:
 if page == "Champion titles":
     df_titles = load_data("champion-title.xlsx")
 
-    if st.session_state['question'] == "":
+    # Check of er een nieuwe vraag nodig is
+    if st.session_state.get('load_new_question', False) or st.session_state['question'] == "":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+        st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
     st.subheader("Champion Title Vraag")
     st.write(st.session_state['question'])
@@ -37,9 +39,10 @@ if page == "Champion titles":
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
 
+    # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
     if st.button("Nieuwe vraag"):
-        st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
-        st.write(st.session_state['question'])
+        st.session_state['load_new_question'] = True
+        st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
 
 # Pagina: Champion passives
 elif page == "Champion passives":
