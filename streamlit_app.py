@@ -39,6 +39,7 @@ if page == "Champion titles":
 
     if st.button("Nieuwe vraag"):
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+        st.write(st.session_state['question'])
 
 # Pagina: Champion passives
 elif page == "Champion passives":
