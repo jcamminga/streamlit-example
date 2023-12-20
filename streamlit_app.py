@@ -24,19 +24,20 @@ if 'current_page' not in st.session_state:
     st.session_state['current_page'] = page
     st.session_state['question'] = ""
     st.session_state['answer'] = ""
+    st.session_state['new_question'] = True
 
 # Check voor paginawissel
 if page != st.session_state['current_page']:
     st.session_state['current_page'] = page
-    st.session_state['question'] = ""
-    st.session_state['answer'] = ""
+    st.session_state['new_question'] = True
 
 # Pagina: Champion titles
 if page == "Champion titles":
     df_titles = load_data("champion-title.xlsx")
 
-    if st.session_state['question'] == "":
+    if st.session_state['new_question']:
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+        st.session_state['new_question'] = False
 
     st.subheader("Champion Title Vraag")
     st.write(st.session_state['question'])
@@ -45,15 +46,16 @@ if page == "Champion titles":
         st.write(st.session_state['answer'])
 
     if st.button("Nieuwe vraag"):
-        st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+        st.session_state['new_question'] = True
 
 # Pagina: Champion passives
 elif page == "Champion passives":
     df_passives = load_data("champion-abilities.xlsx")
     df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
 
-    if st.session_state['question'] == "":
+    if st.session_state['new_question']:
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
+        st.session_state['new_question'] = False
 
     st.subheader("Champion Passive Vraag")
     st.write(st.session_state['question'])
@@ -62,5 +64,4 @@ elif page == "Champion passives":
         st.write(st.session_state['answer'])
 
     if st.button("Nieuwe vraag"):
-        st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
-
+        st.session_state['new_question'] = True
