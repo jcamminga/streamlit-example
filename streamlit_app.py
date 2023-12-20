@@ -17,34 +17,36 @@ def load_data(file_name, sheet_name=0):
 st.title("Quiz Applicatie")
 
 # Pagina navigatie
-page = st.sidebar.selectbox("Kies een pagina:", 
-                            ["Champion titles", "Champion passives"])
+page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
+
+# Initialiseren van session_state variabelen
+if 'question' not in st.session_state or 'answer' not in st.session_state:
+    st.session_state['question'] = ""
+    st.session_state['answer'] = ""
 
 # Pagina: Champion titles
 if page == "Champion titles":
     df_titles = load_data("champion-title.xlsx")
-    question, answer = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+
+    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
 
     st.subheader("Champion Title Vraag")
-    st.write(question)
+    st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
-        st.write(answer)
-
-    if st.button("Nieuwe vraag"):
-        st.experimental_rerun()
+        st.write(st.session_state['answer'])
 
 # Pagina: Champion passives
 elif page == "Champion passives":
     df_passives = load_data("champion-abilities.xlsx")
     df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
-    question, answer = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
+
+    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
 
     st.subheader("Champion Passive Vraag")
-    st.write(question)
+    st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
-        st.write(answer)
-
-    if st.button("Nieuwe vraag"):
-        st.experimental_rerun()
+        st.write(st.session_state['answer'])
