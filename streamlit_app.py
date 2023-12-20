@@ -17,7 +17,12 @@ def load_data(file_name, sheet_name=0):
 st.title("Quiz Applicatie")
 
 # Pagina navigatie
-page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
+selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
+
+# Controleer of de pagina is gewijzigd
+if 'current_page' not in st.session_state or st.session_state['current_page'] != selected_page:
+    st.session_state['current_page'] = selected_page
+    st.session_state['load_new_question'] = True
 
 # Initialiseren van session_state variabelen
 if 'question' not in st.session_state or 'answer' not in st.session_state:
@@ -25,11 +30,10 @@ if 'question' not in st.session_state or 'answer' not in st.session_state:
     st.session_state['answer'] = ""
 
 # Pagina: Champion titles
-if page == "Champion titles":
+if selected_page == "Champion titles":
     df_titles = load_data("champion-title.xlsx")
 
-    # Check of er een nieuwe vraag nodig is
-    if st.session_state.get('load_new_question', False) or st.session_state['question'] == "":
+    if st.session_state.get('load_new_question', False):
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
@@ -43,6 +47,7 @@ if page == "Champion titles":
     if st.button("Nieuwe vraag"):
         st.session_state['load_new_question'] = True
         st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+
 
 # Pagina: Champion passives
 elif page == "Champion passives":
