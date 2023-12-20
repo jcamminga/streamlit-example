@@ -48,17 +48,22 @@ if selected_page == "Champion titles":
         st.session_state['load_new_question'] = True
         st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
 
-
 # Pagina: Champion passives
-elif page == "Champion passives":
+elif selected_page == "Champion passives":
     df_passives = load_data("champion-abilities.xlsx")
     df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
 
-    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+    if st.session_state.get('load_new_question', False):
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
+        st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Champion Passive Vraag")
+    st.subheader("Champion Title Vraag")
     st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
+
+    # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
+    if st.button("Nieuwe vraag"):
+        st.session_state['load_new_question'] = True
+        st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
