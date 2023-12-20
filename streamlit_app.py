@@ -20,7 +20,7 @@ def show_question_page():
     st.write('Vraag: ' + st.session_state.question)
 
     if st.button('Toon antwoord'):
-        st.write('Antwoord: ' + st.session_state.answer)
+        #st.write('Antwoord: ' + st.session_state.answer)
         st.session_state.show_answer = True
 
     if st.button('Terug'):
