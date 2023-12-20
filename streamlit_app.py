@@ -17,7 +17,7 @@ def load_data(file_name, sheet_name=0):
 st.title("Quiz Applicatie")
 
 # Pagina navigatie
-page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
+page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"]).on_change(st.session_state['question'] = "")
 
 # Initialiseren van session_state variabelen
 if 'question' not in st.session_state or 'answer' not in st.session_state:
