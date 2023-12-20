@@ -48,17 +48,11 @@ def main():
         st.header('Welkom op de overzichtspagina!')
         st.write('Kies een vraagcategorie hieronder:')
 
-        selected_category = st.sidebar.selectbox('Selecteer een vraagcategorie:', page_options[1:])
-        if st.sidebar.button('Selecteer'):
-            st.session_state.current_page = selected_category
-            st.session_state.question, st.session_state.answer = set_question_and_answer(selected_category)
-            st.session_state.show_answer = False
-
     elif page.startswith('Champion'):
         show_question_page()
 
-    if st.session_state.show_answer and page.startswith('Champion'):
-        st.write('Antwoord: ' + st.session_state.answer)
+    # if st.session_state.show_answer and page.startswith('Champion'):
+    #     st.write('Antwoord: ' + st.session_state.answer)
 
     if page != 'Home':
         if st.button('Opnieuw Vraag'):
