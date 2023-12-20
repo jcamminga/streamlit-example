@@ -34,7 +34,7 @@ if page == "Champion titles":
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
 
-   if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
 
 # Pagina: Champion passives
@@ -48,5 +48,5 @@ elif page == "Champion passives":
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
 
- if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+     if st.button("Nieuwe vraag") or st.session_state['question'] == "":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
