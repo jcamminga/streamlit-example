@@ -32,7 +32,7 @@ if page == "Champion titles":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
 
     st.subheader("Champion Title Vraag")
-    st.write(st.session_state['question'])
+    st.write(st.session_state['question'] = "")
 
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
