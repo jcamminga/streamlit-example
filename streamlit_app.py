@@ -13,11 +13,14 @@ def select_random_question(df, question_column, answer_column):
 def load_data(file_name, sheet_name=0):
     return pd.read_excel(file_name, sheet_name=sheet_name)
 
+def reset():
+    st.session_state['question'] = ""
+
 # Hoofdpagina setup
 st.title("Quiz Applicatie")
 
 # Pagina navigatie
-page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"]).on_change(st.session_state['question'] = "")
+page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"]).on_change(reset)
 
 # Initialiseren van session_state variabelen
 if 'question' not in st.session_state or 'answer' not in st.session_state:
