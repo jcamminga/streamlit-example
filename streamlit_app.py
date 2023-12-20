@@ -24,7 +24,7 @@ if 'current_page' not in st.session_state:
     st.session_state['current_page'] = page
     st.session_state['question'] = ""
     st.session_state['answer'] = ""
-    st.session_state['new_question'] = True
+    st.session_state['new_question'] = False
 
 # Check voor paginawissel
 if page != st.session_state['current_page']:
