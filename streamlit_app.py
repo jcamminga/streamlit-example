@@ -47,9 +47,7 @@ def main():
         st.header('Welkom op de overzichtspagina!')
         st.write('Kies een vraagcategorie hieronder:')
         for category in page_options[1:]:
-            if st.button(category):
-                st.session_state.question, st.session_state.answer = set_question_and_answer(category)
-                st.session_state.show_answer = False
+            if st.button(category, on_click=set_question_and_answer, args=(category,)):
                 st.session_state.current_page = category
 
     elif page.startswith('Vraag'):
