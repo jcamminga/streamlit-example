@@ -46,13 +46,16 @@ def main():
     if page == 'Home':
         st.header('Welkom op de overzichtspagina!')
         st.write('Kies een vraagcategorie hieronder:')
-        
-        with st.form(key='my_form'):
-            for category in page_options[1:]:
-                if st.form_submit_button(category):
-                    st.session_state.current_page = category
-                    st.session_state.question, st.session_state.answer = set_question_and_answer(category)
-                    st.session_state.show_answer = False
+
+        if st.sidebar.button('Vraag 1'):
+            st.session_state.current_page = 'Vraag 1'
+            st.session_state.question, st.session_state.answer = set_question_and_answer('Vraag 1')
+            st.session_state.show_answer = False
+
+        if st.sidebar.button('Vraag 2'):
+            st.session_state.current_page = 'Vraag 2'
+            st.session_state.question, st.session_state.answer = set_question_and_answer('Vraag 2')
+            st.session_state.show_answer = False
 
     elif page.startswith('Vraag'):
         show_question_page()
