@@ -26,7 +26,6 @@ if 'question' not in st.session_state or 'answer' not in st.session_state:
 
 # Pagina: Champion titles
 if page == "Champion titles":
-    st.session_state['question'] = ""
     df_titles = load_data("champion-title.xlsx")
 
     if st.button("Nieuwe vraag") or st.session_state['question'] == "":
@@ -40,7 +39,6 @@ if page == "Champion titles":
 
 # Pagina: Champion passives
 elif page == "Champion passives":
-    st.session_state['question'] = ""
     df_passives = load_data("champion-abilities.xlsx")
     df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
 
