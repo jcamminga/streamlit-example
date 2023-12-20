@@ -18,16 +18,19 @@ def set_question_and_answer(category):
 
 def show_question_page():
     st.header(st.session_state.current_page)
-    st.write('Vraag: ' + st.session_state.question)
 
-    if st.button('Toon antwoord'):
-        st.write('Antwoord: ' + st.session_state.answer)
-        st.session_state.show_answer = True
+    if st.session_state.question is not None:
+        st.write('Vraag: ' + st.session_state.question)
+
+        if st.button('Toon antwoord'):
+            st.write('Antwoord: ' + st.session_state.answer)
+            st.session_state.show_answer = True
 
     if st.button('Terug'):
         st.session_state.question, st.session_state.answer = None, None
         st.session_state.show_answer = False
         st.session_state.current_page = 'Home'
+
 
 def main():
     st.title('Vragen en Antwoorden App')
