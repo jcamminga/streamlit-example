@@ -14,7 +14,8 @@ def load_data(file_name, sheet_name=0):
     return pd.read_excel(file_name, sheet_name=sheet_name)
 
 # Hoofdpagina setup
-st.title("Quiz Applicatie")
+st.title("Trivia Legends")
+st.subheader('A league of legends Trivia game', divider='red')
 
 # Pagina navigatie
 selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
