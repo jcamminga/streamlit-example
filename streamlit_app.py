@@ -9,18 +9,19 @@ def get_random_question(excel_file_path, question_column, answer_column):
     return question, answer
 
 def set_question_and_answer(category):
-    if category == 'Vraag 1':
+    if category == 'Champion Titles':
         return get_random_question('champion-title.xlsx', 'champ-list__item__title', 'champ-list__item__name')
-    elif category == 'Vraag 2':
+    elif category == 'Champion Passives':
         return get_random_question('champion-abilities.xlsx', 'ability-list__item__name', 'combined')
     # Voeg hier meer categorieën toe als dat nodig is
+
 
 def show_question_page():
     st.header(st.session_state.current_page)
     st.write('Vraag: ' + st.session_state.question)
 
     if st.button('Toon antwoord'):
-        #st.write('Antwoord: ' + st.session_state.answer)
+        st.write('Antwoord: ' + st.session_state.answer)
         st.session_state.show_answer = True
 
     if st.button('Terug'):
@@ -40,27 +41,23 @@ def main():
     if 'current_page' not in st.session_state:
         st.session_state.current_page = 'Home'
 
-    page_options = ['Home', 'Vraag 1', 'Vraag 2']  # Voeg hier meer categorieën toe
+    page_options = ['Home', 'Champion Titles', 'Champion Passives']  # Voeg hier meer categorieën toe
     page = st.sidebar.selectbox('Selecteer een pagina:', page_options)
 
     if page == 'Home':
         st.header('Welkom op de overzichtspagina!')
         st.write('Kies een vraagcategorie hieronder:')
 
-        if st.sidebar.button('Vraag 1'):
-            st.session_state.current_page = 'Vraag 1'
-            st.session_state.question, st.session_state.answer = set_question_and_answer('Vraag 1')
+        selected_category = st.sidebar.selectbox('Selecteer een vraagcategorie:', page_options[1:])
+        if st.sidebar.button('Selecteer'):
+            st.session_state.current_page = selected_category
+            st.session_state.question, st.session_state.answer = set_question_and_answer(selected_category)
             st.session_state.show_answer = False
 
-        if st.sidebar.button('Vraag 2'):
-            st.session_state.current_page = 'Vraag 2'
-            st.session_state.question, st.session_state.answer = set_question_and_answer('Vraag 2')
-            st.session_state.show_answer = False
-
-    elif page.startswith('Vraag'):
+    elif page.startswith('Champion'):
         show_question_page()
 
-    if st.session_state.show_answer and page.startswith('Vraag'):
+    if st.session_state.show_answer and page.startswith('Champion'):
         st.write('Antwoord: ' + st.session_state.answer)
 
     if page != 'Home':
