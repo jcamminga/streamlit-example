@@ -19,8 +19,15 @@ st.title("Quiz Applicatie")
 # Pagina navigatie
 page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
 
-# Initialiseren van session_state variabelen
-if 'question' not in st.session_state or 'answer' not in st.session_state:
+# Initialiseren of bijwerken van session_state variabelen
+if 'current_page' not in st.session_state:
+    st.session_state['current_page'] = page
+    st.session_state['question'] = ""
+    st.session_state['answer'] = ""
+
+# Check voor paginawissel
+if page != st.session_state['current_page']:
+    st.session_state['current_page'] = page
     st.session_state['question'] = ""
     st.session_state['answer'] = ""
 
@@ -28,7 +35,7 @@ if 'question' not in st.session_state or 'answer' not in st.session_state:
 if page == "Champion titles":
     df_titles = load_data("champion-title.xlsx")
 
-    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+    if st.session_state['question'] == "":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
 
     st.subheader("Champion Title Vraag")
@@ -37,12 +44,15 @@ if page == "Champion titles":
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
 
+    if st.button("Nieuwe vraag"):
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+
 # Pagina: Champion passives
 elif page == "Champion passives":
     df_passives = load_data("champion-abilities.xlsx")
     df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
 
-    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+    if st.session_state['question'] == "":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
 
     st.subheader("Champion Passive Vraag")
@@ -50,3 +60,7 @@ elif page == "Champion passives":
 
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
+
+    if st.button("Nieuwe vraag"):
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
+
