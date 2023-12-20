@@ -37,7 +37,7 @@ if page == "Champion titles":
 # Pagina: Champion passives
 elif page == "Champion passives":
     df_passives = load_data("champion-abilities.xlsx")
-    df_passives_filtered = df_passives[df_passives['ability-list__item__name'] == 'Passive']
+    df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
     question, answer = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
 
     st.subheader("Champion Passive Vraag")
