@@ -24,30 +24,43 @@ if 'current_page' not in st.session_state:
     st.session_state['current_page'] = page
     st.session_state['question'] = ""
     st.session_state['answer'] = ""
-    st.session_state['question_counter'] = 0
-    st.session_state['last_question_counter'] = -1
 
-# Check voor paginawissel of nieuwe vraag
-if page != st.session_state['current_page'] or st.session_state['question_counter'] != st.session_state['last_question_counter']:
+# Check voor paginawissel
+if page != st.session_state['current_page']:
     st.session_state['current_page'] = page
-    st.session_state['last_question_counter'] = st.session_state['question_counter']
+    st.session_state['question'] = ""
+    st.session_state['answer'] = ""
 
-    if page == "Champion titles":
-        df = load_data("champion-title.xlsx")
-        question_column, answer_column = 'champ-list__item__title', 'champ-list__item__name'
-    elif page == "Champion passives":
-        df = load_data("champion-abilities.xlsx")
-        df = df[df['ability-list__item__keybind'] == 'Passive']
-        question_column, answer_column = 'ability-list__item__name', 'combined'
+# Pagina: Champion titles
+if page == "Champion titles":
+    df_titles = load_data("champion-title.xlsx")
 
-    st.session_state['question'], st.session_state['answer'] = select_random_question(df, question_column, answer_column)
+    if st.session_state['question'] == "":
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
 
-# Pagina inhoud
-st.subheader(f"{page} Vraag")
-st.write(st.session_state['question'])
+    st.subheader("Champion Title Vraag")
+    st.write(st.session_state['question'])
 
-if st.button("Toon antwoord"):
-    st.write(st.session_state['answer'])
+    if st.button("Toon antwoord"):
+        st.write(st.session_state['answer'])
 
-if st.button("Nieuwe vraag"):
-    st.session_state['question_counter'] += 1
+    if st.button("Nieuwe vraag"):
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
+
+# Pagina: Champion passives
+elif page == "Champion passives":
+    df_passives = load_data("champion-abilities.xlsx")
+    df_passives_filtered = df_passives[df_passives['ability-list__item__keybind'] == 'Passive']
+
+    if st.session_state['question'] == "":
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
+
+    st.subheader("Champion Passive Vraag")
+    st.write(st.session_state['question'])
+
+    if st.button("Toon antwoord"):
+        st.write(st.session_state['answer'])
+
+    if st.button("Nieuwe vraag") or st.session_state['question'] == "":
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
+
