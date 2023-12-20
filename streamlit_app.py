@@ -51,9 +51,6 @@ def main():
     elif page.startswith('Champion'):
         show_question_page()
 
-    # if st.session_state.show_answer and page.startswith('Champion'):
-    #     st.write('Antwoord: ' + st.session_state.answer)
-
     if page != 'Home':
         if st.button('Opnieuw Vraag'):
             st.session_state.question, st.session_state.answer = set_question_and_answer(st.session_state.current_page)
