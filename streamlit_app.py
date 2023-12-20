@@ -1,63 +1,50 @@
 import streamlit as st
 import pandas as pd
+import random
 
-def get_random_question(excel_file_path, question_column, answer_column):
-    df = pd.read_excel(excel_file_path)
-    random_row = df.sample(1)
+# Functie om een willekeurige vraag en antwoord te kiezen
+def select_random_question(df, question_column, answer_column):
+    random_row = df.sample()
     question = random_row[question_column].values[0]
     answer = random_row[answer_column].values[0]
     return question, answer
 
-def set_question_and_answer(category):
-    if category == 'Champion Titles':
-        return get_random_question('champion-title.xlsx', 'champ-list__item__title', 'champ-list__item__name')
-    elif category == 'Champion Passives':
-        return get_random_question('champion-abilities.xlsx', 'ability-list__item__name', 'combined')
-    # Voeg hier meer categorieën toe als dat nodig is
+# Functie om een dataframe te laden vanuit een Excel-bestand
+def load_data(file_name, sheet_name=0):
+    return pd.read_excel(file_name, sheet_name=sheet_name)
 
+# Hoofdpagina setup
+st.title("Quiz Applicatie")
 
-def show_question_page():
-    st.header(st.session_state.current_page)
+# Pagina navigatie
+page = st.sidebar.selectbox("Kies een pagina:", 
+                            ["Champion titles", "Champion passives"])
 
-    if st.session_state.question is not None:
-        st.write('Vraag: ' + st.session_state.question)
+# Pagina: Champion titles
+if page == "Champion titles":
+    df_titles = load_data("champion-title.xlsx")
+    question, answer = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
 
-        if st.button('Toon antwoord'):
-            st.write('Antwoord: ' + st.session_state.answer)
-            st.session_state.show_answer = True
+    st.subheader("Champion Title Vraag")
+    st.write(question)
 
-    if st.button('Terug'):
-        st.session_state.question, st.session_state.answer = None, None
-        st.session_state.show_answer = False
-        st.session_state.current_page = 'Home'
+    if st.button("Toon antwoord"):
+        st.write(answer)
 
+    if st.button("Nieuwe vraag"):
+        st.experimental_rerun()
 
-def main():
-    st.title('Vragen en Antwoorden App')
+# Pagina: Champion passives
+elif page == "Champion passives":
+    df_passives = load_data("champion-abilities.xlsx")
+    df_passives_filtered = df_passives[df_passives['ability-list__item__name'] == 'Passive']
+    question, answer = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
 
-    if 'question' not in st.session_state:
-        st.session_state.question = None
-    if 'answer' not in st.session_state:
-        st.session_state.answer = None
-    if 'show_answer' not in st.session_state:
-        st.session_state.show_answer = False
-    if 'current_page' not in st.session_state:
-        st.session_state.current_page = 'Home'
+    st.subheader("Champion Passive Vraag")
+    st.write(question)
 
-    page_options = ['Home', 'Champion Titles', 'Champion Passives']  # Voeg hier meer categorieën toe
-    page = st.sidebar.selectbox('Selecteer een pagina:', page_options)
+    if st.button("Toon antwoord"):
+        st.write(answer)
 
-    if page == 'Home':
-        st.header('Welkom op de overzichtspagina!')
-        st.write('Kies een vraagcategorie hieronder:')
-
-    elif page.startswith('Champion'):
-        show_question_page()
-
-    if page != 'Home':
-        if st.button('Opnieuw Vraag'):
-            st.session_state.question, st.session_state.answer = set_question_and_answer(st.session_state.current_page)
-            st.session_state.show_answer = False
-
-if __name__ == '__main__':
-    main()
+    if st.button("Nieuwe vraag"):
+        st.experimental_rerun()
