@@ -38,7 +38,7 @@ if selected_page == "Champion titles":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Champion Title Vraag")
+    st.subheader("Van welke champion is dit de titel:")
     st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
@@ -58,7 +58,7 @@ elif selected_page == "Champion passives":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Champion Title Vraag")
+    st.subheader("Van welke champion is dit de passive:")
     st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
