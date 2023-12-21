@@ -23,10 +23,15 @@ def load_data(file_name, sheet_name=0):
 
 # Hoofdpagina setup
 st.title("Trivia Legends")
-st.subheader('A league of legends Trivia game', divider='red')
 
 # Pagina navigatie
-selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs"])
+selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs", "Item stats"])
+st.sidebar.write(":blue_heart:: Champion titles")
+st.sidebar.write(":green_heart:: Champion passives")
+st.sidebar.write(":red_heart:: Champion abilities")
+st.sidebar.write(":yellow_heart:: Runes")
+st.sidebar.write(":brown_heart:: Item costs")
+st.sidebar.write(":orange_heart:: Item stats")
 
 # Controleer of de pagina is gewijzigd
 if 'current_page' not in st.session_state or st.session_state['current_page'] != selected_page:
@@ -40,6 +45,7 @@ if 'question' not in st.session_state or 'answer' not in st.session_state:
 
 # Pagina: Champion titles
 if selected_page == "Champion titles":
+    st.subheader('A league of legends Trivia game', divider='red')
     df_titles = load_data("champion-title.xlsx")
 
     if st.session_state.get('load_new_question', False):
@@ -126,6 +132,27 @@ elif selected_page == "Item costs":
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
     st.subheader("Hoeveel kost dit item?")
+    st.image(st.session_state['question'], width=200)
+    st.write(st.session_state['caption'])
+
+    if st.button("Toon antwoord"):
+        st.write(st.session_state['answer'])
+
+    # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
+    if st.button("Nieuwe vraag"):
+        st.session_state['load_new_question'] = True
+        st.rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+
+# Pagina: Item stats
+elif selected_page == "Item stats":
+    df_items = load_data("Items.xlsx")
+   
+
+    if st.session_state.get('load_new_question', False):
+        st.session_state['question'], st.session_state['answer'], st.session_state['caption'] = select_random_question_detailed(df_items, 'Image', 'Stats', 'Item')
+        st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
+
+    st.subheader("Welke stats heeft dit item?")
     st.image(st.session_state['question'], width=200)
     st.write(st.session_state['caption'])
 
