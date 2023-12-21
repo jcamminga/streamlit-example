@@ -26,7 +26,7 @@ st.title("Trivia Legends")
 st.subheader('A league of legends Trivia game', divider='red')
 
 # Pagina navigatie
-selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities"', "Runes", "Item costs"])
+selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs"])
 
 # Controleer of de pagina is gewijzigd
 if 'current_page' not in st.session_state or st.session_state['current_page'] != selected_page:
