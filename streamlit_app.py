@@ -74,7 +74,7 @@ elif selected_page == "Champion abilities":
     df_abilities = load_data("champion-abilities.xlsx")
 
     if st.session_state.get('load_new_question', False):
-        st.session_state['question'], st.session_state['answer'] = select_random_question(df_abilities, 'full image 'combined')
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_abilities, 'full image', 'combined')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
     st.subheader("Welke ability is dit?:")
