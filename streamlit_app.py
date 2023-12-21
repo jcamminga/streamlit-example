@@ -78,7 +78,7 @@ elif selected_page == "Champion abilities":
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
     st.subheader("Welke ability is dit?:")
-    st.write(st.session_state['question'])
+    st.image(st.session_state['question'])
 
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
