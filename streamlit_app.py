@@ -23,15 +23,17 @@ def load_data(file_name, sheet_name=0):
 
 # Hoofdpagina setup
 st.title("Trivia Legends")
+st.subheader('A League of Legends Trivia game', divider='red')
 
 # Pagina navigatie
-selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs", "Item stats"])
-st.sidebar.write(":blue[Blauw: Champion titles]")
-st.sidebar.write(":green[Groen: Champion passives]")
-st.sidebar.write(":yellow[Geel: Champion abilities]")
-st.sidebar.write(":red[Rood: Runes]")
-st.sidebar.write(":brown[Bruin: Item costs]")
-st.sidebar.write(":orange[Oranje: Item stats]")
+selected_page = st.sidebar.selectbox("Kies een vraag:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs", "Item stats"])
+st.sidebar.subheader("Vragen overzicht")
+st.sidebar.write("Blauw: Champion titles")
+st.sidebar.write("Groen: Champion passives")
+st.sidebar.write("Geel: Champion abilities")
+st.sidebar.write("Rood: Runes")
+st.sidebar.write("Bruin: Item costs")
+st.sidebar.write("Oranje: Item stats")
 
 # Controleer of de pagina is gewijzigd
 if 'current_page' not in st.session_state or st.session_state['current_page'] != selected_page:
@@ -45,7 +47,7 @@ if 'question' not in st.session_state or 'answer' not in st.session_state:
 
 # Pagina: Champion titles
 if selected_page == "Champion titles":
-    st.subheader('A league of legends Trivia game', divider='red')
+    
     df_titles = load_data("champion-title.xlsx")
 
     if st.session_state.get('load_new_question', False):
