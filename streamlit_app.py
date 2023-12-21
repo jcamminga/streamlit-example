@@ -18,7 +18,7 @@ st.title("Trivia Legends")
 st.subheader('A league of legends Trivia game', divider='red')
 
 # Pagina navigatie
-selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives"])
+selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities"])
 
 # Controleer of de pagina is gewijzigd
 if 'current_page' not in st.session_state or st.session_state['current_page'] != selected_page:
@@ -69,16 +69,15 @@ elif selected_page == "Champion passives":
         st.session_state['load_new_question'] = True
         st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
 
-# Pagina: Champion ultimates
-elif selected_page == "Champion ultimates":
-    df_ults = load_data("champion-abilities.xlsx")
-    df_ults_filtered = df_ults[df_ults['ability-list__item__keybind'] == 'R']
+# Pagina: Champion abilities
+elif selected_page == "Champion abilities":
+    df_abilities = load_data("champion-abilities.xlsx")
 
     if st.session_state.get('load_new_question', False):
-        st.session_state['question'], st.session_state['answer'] = select_random_question(df_ults_filtered, 'ability-list__item__name', 'combined')
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_abilities, 'full image 'combined')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Van welke champion is dit de ultimate:")
+    st.subheader("Welke ability is dit?:")
     st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
