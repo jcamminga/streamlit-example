@@ -47,7 +47,7 @@ if selected_page == "Champion titles":
     # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
     if st.button("Nieuwe vraag"):
         st.session_state['load_new_question'] = True
-        st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+        st.rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
 
 # Pagina: Champion passives
 elif selected_page == "Champion passives":
@@ -67,7 +67,7 @@ elif selected_page == "Champion passives":
     # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
     if st.button("Nieuwe vraag"):
         st.session_state['load_new_question'] = True
-        st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+        st.rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
 
 # Pagina: Champion abilities
 elif selected_page == "Champion abilities":
@@ -87,4 +87,4 @@ elif selected_page == "Champion abilities":
     # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
     if st.button("Nieuwe vraag"):
         st.session_state['load_new_question'] = True
-        st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+        st.rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
