@@ -9,6 +9,14 @@ def select_random_question(df, question_column, answer_column):
     answer = random_row[answer_column].values[0]
     return question, answer
 
+# Functie om een willekeurige vraag en antwoord te kiezen
+def select_random_question_detailed(df, question_column, answer_column, caption_column):
+    random_row = df.sample()
+    question = random_row[question_column].values[0]
+    answer = random_row[answer_column].values[0]
+    caption = random_row[caption_column].values[0]
+    return question, answer, caption
+
 # Functie om een dataframe te laden vanuit een Excel-bestand
 def load_data(file_name, sheet_name=0):
     return pd.read_excel(file_name, sheet_name=sheet_name)
@@ -80,6 +88,45 @@ elif selected_page == "Champion abilities":
 
     st.subheader("Welke ability is dit?:")
     st.image(st.session_state['question'], width=200)
+
+    if st.button("Toon antwoord"):
+        st.write(st.session_state['answer'])
+
+    # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
+    if st.button("Nieuwe vraag"):
+        st.session_state['load_new_question'] = True
+        st.rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+
+# Pagina: Runes
+elif selected_page == "Runes":
+    df_runes = load_data("runes.xlsx")
+
+    if st.session_state.get('load_new_question', False):
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_runes, 'full image', 'Rune')
+        st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
+
+    st.subheader("Welke rune is dit?:")
+    st.image(st.session_state['question'], width=200)
+
+    if st.button("Toon antwoord"):
+        st.write(st.session_state['answer'])
+
+    # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
+    if st.button("Nieuwe vraag"):
+        st.session_state['load_new_question'] = True
+        st.rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+
+# Pagina: Item costs
+elif selected_page == "Item costs":
+    df_items = load_data("Items.xlsx")
+    df_items_filtered = df_items[df_items['Cost'] < 2000]
+
+    if st.session_state.get('load_new_question', False):
+        st.session_state['question'], st.session_state['answer'], st.session_state['caption'] = select_random_question_detailed(df_items_filtered, 'Image', 'Cost', 'Item')
+        st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
+
+    st.subheader("Welke rune is dit?:")
+    st.image(st.session_state['question'], width=200, caption = st.session_state['caption'] )
 
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
