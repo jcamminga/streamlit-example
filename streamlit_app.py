@@ -46,7 +46,7 @@ if selected_page == "Champion titles":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_titles, 'champ-list__item__title', 'champ-list__item__name')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Van welke champion is dit de titel:")
+    st.subheader("Van welke champion is dit de titel?")
     st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
@@ -66,7 +66,7 @@ elif selected_page == "Champion passives":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_passives_filtered, 'ability-list__item__name', 'combined')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Van welke champion is dit de passive:")
+    st.subheader("Van welke champion is dit de passive?")
     st.write(st.session_state['question'])
 
     if st.button("Toon antwoord"):
@@ -86,7 +86,7 @@ elif selected_page == "Champion abilities":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_abilities_filtered, 'full image', 'combined')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Welke ability is dit?:")
+    st.subheader("Welke ability is dit?")
     st.image(st.session_state['question'], width=200)
 
     if st.button("Toon antwoord"):
@@ -105,7 +105,7 @@ elif selected_page == "Runes":
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_runes, 'full image', 'Rune')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Welke rune is dit?:")
+    st.subheader("Welke rune is dit?")
     st.image(st.session_state['question'], width=200)
 
     if st.button("Toon antwoord"):
@@ -125,8 +125,9 @@ elif selected_page == "Item costs":
         st.session_state['question'], st.session_state['answer'], st.session_state['caption'] = select_random_question_detailed(df_items_filtered, 'Image', 'Cost', 'Item')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
-    st.subheader("Welke rune is dit?:")
+    st.subheader("Hoeveel kost dit item?")
     st.image(st.session_state['question'], width=200, caption = st.session_state['caption'] )
+    st.write(st.session_state['caption'])
 
     if st.button("Toon antwoord"):
         st.write(st.session_state['answer'])
