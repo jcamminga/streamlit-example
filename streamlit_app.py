@@ -26,7 +26,7 @@ st.title("Trivia Legends")
 
 # Pagina navigatie
 selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs", "Item stats"])
-st.sidebar.write(":blue[Blauw: Champion titles"])
+st.sidebar.write(":blue[Blauw: Champion titles]")
 st.write(f"temprature: :blue[{temperature}]")
 st.sidebar.write(":green_heart:: Champion passives")
 st.sidebar.write(":red_heart:: Champion abilities")
