@@ -72,6 +72,7 @@ elif selected_page == "Champion passives":
 # Pagina: Champion abilities
 elif selected_page == "Champion abilities":
     df_abilities = load_data("champion-abilities.xlsx")
+    df_abilities_filtered = df_abilities[df_abilities['ability-list__item__keybind'] !== 'Passive']
 
     if st.session_state.get('load_new_question', False):
         st.session_state['question'], st.session_state['answer'] = select_random_question(df_abilities, 'full image', 'combined')
