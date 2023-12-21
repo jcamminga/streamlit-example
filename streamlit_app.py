@@ -68,3 +68,23 @@ elif selected_page == "Champion passives":
     if st.button("Nieuwe vraag"):
         st.session_state['load_new_question'] = True
         st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
+
+# Pagina: Champion ultimates
+elif selected_page == "Champion ultimates":
+    df_ults = load_data("champion-abilities.xlsx")
+    df_ults_filtered = df_ults[df_ults['ability-list__item__keybind'] == 'R']
+
+    if st.session_state.get('load_new_question', False):
+        st.session_state['question'], st.session_state['answer'] = select_random_question(df_ults_filtered, 'ability-list__item__name', 'combined')
+        st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
+
+    st.subheader("Van welke champion is dit de ultimate:")
+    st.write(st.session_state['question'])
+
+    if st.button("Toon antwoord"):
+        st.write(st.session_state['answer'])
+
+    # Knop 'Nieuwe vraag' - zet de vlag voor het laden van een nieuwe vraag
+    if st.button("Nieuwe vraag"):
+        st.session_state['load_new_question'] = True
+        st.experimental_rerun()  # Herlaad de pagina om de nieuwe vraag te tonen
