@@ -119,14 +119,14 @@ elif selected_page == "Runes":
 # Pagina: Item costs
 elif selected_page == "Item costs":
     df_items = load_data("Items.xlsx")
-    df_items_filtered = df_items[df_items['Cost'] < 2000]
+    df_items_filtered = df_items[df_items['Cost'] > 2000]
 
     if st.session_state.get('load_new_question', False):
         st.session_state['question'], st.session_state['answer'], st.session_state['caption'] = select_random_question_detailed(df_items_filtered, 'Image', 'Cost', 'Item')
         st.session_state['load_new_question'] = False  # Reset de vlag na het laden van de nieuwe vraag
 
     st.subheader("Hoeveel kost dit item?")
-    st.image(st.session_state['question'], width=200, caption = st.session_state['caption'] )
+    st.image(st.session_state['question'], width=200)
     st.write(st.session_state['caption'])
 
     if st.button("Toon antwoord"):
