@@ -27,12 +27,11 @@ st.title("Trivia Legends")
 # Pagina navigatie
 selected_page = st.sidebar.selectbox("Kies een pagina:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs", "Item stats"])
 st.sidebar.write(":blue[Blauw: Champion titles]")
-st.write(f"temprature: :blue[{temperature}]")
-st.sidebar.write(":green_heart:: Champion passives")
-st.sidebar.write(":red_heart:: Champion abilities")
-st.sidebar.write(":yellow_heart:: Runes")
-st.sidebar.write(":brown_heart:: Item costs")
-st.sidebar.write(":orange_heart:: Item stats")
+st.sidebar.write(":green[Groen: Champion passives]")
+st.sidebar.write(":yellow[Geel: Champion abilities]")
+st.sidebar.write(":red[Rood: Runes]")
+st.sidebar.write(":brown[Bruin: Item costs]")
+st.sidebar.write(":orange[Oranje: Item stats]")
 
 # Controleer of de pagina is gewijzigd
 if 'current_page' not in st.session_state or st.session_state['current_page'] != selected_page:
