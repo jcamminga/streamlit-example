@@ -27,6 +27,12 @@ st.subheader('A League of Legends Trivia game', divider='red')
 
 # Pagina navigatie
 selected_page = st.sidebar.selectbox("Kies een vraag:", ["Champion titles", "Champion passives", "Champion abilities", "Runes", "Item costs", "Item stats"])
+st.sidebar.write("")
+st.sidebar.write("")
+st.sidebar.write("")
+st.sidebar.write("")
+st.sidebar.write("")
+st.sidebar.write("")
 st.sidebar.subheader("Vragen overzicht")
 st.sidebar.write("Blauw: Champion titles")
 st.sidebar.write("Groen: Champion passives")
